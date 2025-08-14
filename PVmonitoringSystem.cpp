@@ -61,6 +61,76 @@ void scanIntegerInput(int &value) {
     }
 }
 
+void calibration()
+{
+    bool loop = true;
+    int Input = 0;
+
+    double appliedVoltage, measuredCurrent, shuntVoltage;
+
+    digitalWrite(latchPin2, LOW);
+    shiftOut(dataPin2, clockPin2, MSBFIRST, B00010000);
+    digitalWrite(latchPin2, HIGH);
+
+    scaleIndex = 6;
+    updateShuntScale();
+
+    while (loop)
+    {
+        
+        adc.setMUX(SING_6);
+        appliedVoltage = adc.convertToVoltage(adc.readSingle()) - 2.5;
+
+        adc.setMUX(SING_2);
+        shuntVoltage = adc.convertToVoltage(adc.readSingle()) - 2.5;
+
+        measuredCurrent = shuntVoltage / (100.0 * shuntResistances[scaleIndex]);
+
+        Serial.print("Applied Voltage: ");
+        Serial.print(appliedVoltage);
+        Serial.print("-----------------");
+        Serial.print("Measured current: ");
+        Serial.print(measuredCurrent);
+        Serial.print("-----------------");
+        Serial.print("Shunt voltage: ");
+        Serial.println(shuntVoltage);
+
+        if (Serial.available() > 0)
+        {
+            scanIntegerInput(Input);
+
+            if (Input == 0)
+            {
+                dac.setVoltage(0, false);
+                Serial.print("DAC voltage = ");
+                Serial.println(0);
+            }
+            else if (Input == 1)
+            {
+                increaseShuntScale();
+            }
+            else if (Input == 1)
+            {
+                decreaseShuntScale();
+            }
+            else if (Input == 3)
+            {
+                dac.setVoltage(2047, false);
+                Serial.println("DAC voltage = 2.5 V");
+            }
+            else if (Input == 5)
+            {
+                dac.setVoltage(4095, false);
+                Serial.println("DAC voltage = 5 V");
+            }
+            else if (Input == 9)
+            {
+                loop = false;
+            }
+        }
+    }
+}
+
 // Save a measurement to EEPROM
 void saveMeasurement(int address, float voltage, float current, float diff) {
     address = 1 + ((address - 1) * 12);

@@ -74,6 +74,7 @@ extern const char* loadSettingsFromSheetURL;
 
 // --- Calibration ---
 void scanIntegerInput(int &value);                 // Read integer from serial input
+void calibration();
 
 // --- EEPROM ---
 void saveMeasurement(int address, float voltage, float current, float diff); // Save data in EEPROM
