@@ -57,10 +57,10 @@ This open-source platform is suitable for **laboratory**, **glovebox**, and **ou
 ---
 
 ## 💻 Software Installation
-**Configure** <a href="https://docs.google.com/spreadsheets/d/1kSAy_Uos-emDk9aBooSjsmjM2wZ1Fo_ap92WN2WwyN0/edit?usp=sharing">Google sheets</a>. 
-**Deploy** each Google API Script.
-Paste the Google sheets charts links in the web page and host the **Web Interface**.
-**Configure** Wi-Fi credentials and Google Script ID in the firmware.
+- **Configure** <a href="https://docs.google.com/spreadsheets/d/1kSAy_Uos-emDk9aBooSjsmjM2wZ1Fo_ap92WN2WwyN0/edit?usp=sharing">Google sheets</a>. 
+- **Deploy** each Google API Script.
+- Paste the Google sheets charts links in the web page and host the **Web Interface**.
+- **Configure** Wi-Fi credentials and Google Script ID in the firmware.
 
 ---
 
